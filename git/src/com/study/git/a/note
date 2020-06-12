@@ -1,0 +1,124 @@
+svn：
+	缺点	:通过中央集群统一处理
+		必须依赖于 互联网 和 中央仓库 才能检出source code
+		
+
+git:版本控制软件
+
+	原理
+		分布式
+			解决了svn的缺点
+		每人一个版本库，改完代码放在本地的版本库中，如果需要俩个人之间(通过互联网)推送与拉取
+		
+		本地工作目录（本地代码）-> 暂存区 -> 版本库 <--> 版本库（别人的）
+		
+		优点：减少版本库里的版本号
+		
+		官方版本库叫法	分支1 分支2 ·····
+			主版本库称之为默认分支
+
+	
+	命令
+		1.本地工作目录（本地开发代码）-> 暂存区
+			git add
+		
+		2.暂存区 -> 版本库
+			git commit
+		
+		3.推送与拉取
+			推送（本地的分支->远程的分支）
+				版本库 -> 版本库（别人的）
+					git push
+			拉取（远程的分支->本地的分支）
+				版本库（别人的） -> 版本库
+					git pull
+
+	1.安装
+		选择
+			use git from git bash only..
+		其他默认下一步
+		
+		配置path		bin目录
+
+		配置git
+			右键-git bash
+			git config --global user.name "cll"
+			git config --global user.email "2440831683@qq.com"
+		检查git是否配置成功
+			查看C:\Users\0，0\.gitconfig	
+
+	2.搭建git服务器
+		远程仓库		统一的托管网站	github.com
+		
+		为了在本地 和 远程仓库之间进行 免秘钥登录，可以配置ssh
+			配置ssh
+				a.先配置本地ssh，发送给远程
+					ssh-keygrn -t rsa -C 2440831683@qq.com	一直回车
+				b.发送给远程
+					github - setting - SSH and.... - New SSH - title任意、key中输入  刚才在本地生成的ssh	
+					将本地生成的id_rsa.pub内容复制到远程的key中	#不能有回车、空格啥的
+			测试连通性
+				ssh -T git@github.com	#固定写法
+				如果本地和远程成功通信，则可以在 /.ssh目录中 发现known_hosts文件
+				如果失败：网络不稳定，多尝试几次
+
+				
+	3.使用git
+		a.在项目根目录 右键 -> git bash -> git init
+		b.在远程建立git项目
+			new-建立项目-生成 https://github.com/Honey-chen/mygitremote.git
+		c.本地项目-远程项目关联
+			git remote add origin git@github.com:Honey-chen/mygitremote.git
+
+			
+	4.项目的交互
+		
+		a.第一次发布项目（本地-远程）
+			i.	git add	.	#文件暂存区(这里的点表示当前目录所有文件)
+			ii.	gitcommit -m "注释内容"		#暂存区-本地分支(默认master)
+			iii.git push -u origin master
+						
+		b.第一次下载项目（远程-本地）
+			i.	git clone git@github.com:Honey-chen/mygitremote.git
+		
+		c.提交(本地->远程)
+			(在当前工作目录 右键 git bash)
+			i.git add .
+			ii.git commit -m "提交到分支"
+			iii.git push origin master
+		
+		d.更新
+			i.	git pull
+
+Egit：在Eclipse中操作git
+		1.配置
+			a.team->git->configuration  --邮箱用户名
+			b.general->network->ssh		--选中生成的.ssh目录
+		2.第一次发布
+			a.share project
+			b.add to index	#加入到暂存区
+			c.commit	#提交到本地分支
+			d.push		#将项目推送到远程
+		
+		3.第一次下载
+		
+		4.提交
+		
+		5.更新
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
